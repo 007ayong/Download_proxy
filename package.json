@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "got": "^12.5.3",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  },
+  "name": "node_proxy",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
