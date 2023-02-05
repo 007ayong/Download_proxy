@@ -7,8 +7,7 @@ import path from 'path';
 
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
-  let fileName = path.basename(parsedUrl.query.url);
-
+  
   const query = parsedUrl.query;
   console.log(query);
   let downloadUrl = query.url;
@@ -34,6 +33,8 @@ const server = http.createServer(async (req, res) => {
   }
 
 
+
+  let fileName = path.basename(parsedUrl.query.url);
 
 
   try {
