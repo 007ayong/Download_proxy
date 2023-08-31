@@ -8,7 +8,7 @@ const server = http.createServer(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
   res.setHeader('Access-Control-Max-Age', 60 * 60 * 24 * 30);
-  
+
     const rangeHeader = req.headers['range'];
     const parsedUrl = url.parse(req.url, true);
     const query = parsedUrl.query;
@@ -59,7 +59,10 @@ const server = http.createServer(async (req, res) => {
                             fileName = match[1];
                         }
                     }
-                    const fileSize = parseInt(redirectResponse.headers['content-length']);
+                    let fileSize = NaN;
+                    if (redirectResponse.headers['content-length']) {
+                      fileSize = parseInt(redirectResponse.headers['content-length']);
+                    }
                     if (!isNaN(fileSize) && fileSize > 0) {
                         // Set appropriate response headers for content disposition, content type, etc.
                         // ...
@@ -98,7 +101,10 @@ const server = http.createServer(async (req, res) => {
 
                 }
             }
-            const fileSize = parseInt(preResponse.headers['content-length']);
+            let fileSize = NaN;
+      if (preResponse.headers['content-length']) {
+        fileSize = parseInt(preResponse.headers['content-length']);
+      }
             if (!isNaN(fileSize) && fileSize > 0) {
                 // Check if the filename has an extension like .zip, .exe, etc.
                 if (path.extname(fileName)) {
