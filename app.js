@@ -4,6 +4,11 @@ import url from 'url';
 import path from 'path';
 
 const server = http.createServer(async (req, res) => {
+    // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+  res.setHeader('Access-Control-Max-Age', 60 * 60 * 24 * 30);
+  
     const rangeHeader = req.headers['range'];
     const parsedUrl = url.parse(req.url, true);
     const query = parsedUrl.query;
