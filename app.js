@@ -14,7 +14,7 @@ const server = http.createServer(async (req, res) => {
   // console.log(rangeHeader);
   const parsedUrl = url.parse(req.url, true);
   const query = parsedUrl.query;
-  const decodedUrl = decodeURIComponent(query.url);
+  const decodedUrl = query.url;
   const time = query.time;
 
 
@@ -34,6 +34,7 @@ const server = http.createServer(async (req, res) => {
     res.end("Token expired, please request a new one.");
     return;
   }
+  console.log(decodedUrl)
   try {
     const preResponse = await got.head(decodedUrl, {
       timeout: { socket: 60000 },
