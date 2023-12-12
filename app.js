@@ -40,8 +40,11 @@ const server = http.createServer(async (req, res) => {
       timeout: { socket: 60000 },
       followRedirect: false,
     });
-
-    if (preResponse.statusCode >= 300 && preResponse.statusCode < 400 && preResponse.headers.location) {
+    if (preResponse.statusCode === 404) {
+      res.statusCode = 204;
+      res.end("文件未找到");
+      return;
+    } else if (preResponse.statusCode >= 300 && preResponse.statusCode < 400 && preResponse.headers.location) {
       const redirectUrl = preResponse.headers.location;
       // console.log('Redirect URL:', redirectUrl);
 
@@ -102,6 +105,7 @@ const server = http.createServer(async (req, res) => {
         }
       } catch (error) {
         console.error(error);
+        return;
       }
     } else if (preResponse.statusCode === 200) {
       let fileName = path.basename(decodedUrl);
@@ -166,6 +170,7 @@ const server = http.createServer(async (req, res) => {
       res.statusCode = 404;
       res.end("请求失败");
     }
+    return;
   }
 });
 
