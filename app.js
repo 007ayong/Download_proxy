@@ -27,9 +27,9 @@ const server = http.createServer(async (req, res) => {
 
   // 时间戳的简单验证
   const now = new Date().getTime();
-  const timeDiff = now - time;
+  const timeDiff = Math.abs(now - time); // Use absolute value to handle time differences
   const threeHour = 1000 * 60 * 60 * 3;
-  if (timeDiff < 0 || timeDiff > threeHour) {
+  if (timeDiff > threeHour) { // Remove negative check since we're using absolute value
     res.statusCode = 401;
     res.end("Token expired, please request a new one.");
     return;
